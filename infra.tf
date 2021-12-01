@@ -6,16 +6,14 @@ terraform {
   }
 }
 
-variable "GCP_SA" {
-  type = any
-}
+variable "GCP_SA" {}
 
 variable "funcurl" {
   type = string
 }
 
 provider "google" {
-  credentials = base64decode(var.GCP_CA)
+  credentials = base64decode(var.GCP_SA)
 
   project = "fifth-sunup-329021"
   region  = "australia-southeast1"
