@@ -42,8 +42,10 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
         with:
-          args: '-var="GCP_SA=${{ secrets.GCP_SA }},funcurl=${{ steps.deploy.outputs.url }}"'
           cli_config_credentials_token: '${{ secrets.TF_API_TOKEN }}'
+        env:
+          TF_VAR_GCP_SA='${{ secrets.GCP_SA }}'
+          TF_VAR_funcurl='${{ steps.deploy.outputs.url }}'
 
       # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
       - name: Terraform Init
