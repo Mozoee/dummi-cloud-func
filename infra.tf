@@ -15,7 +15,7 @@ variable "funcurl" {
 }
 
 provider "google" {
-  credentials = ${ var.GCP_CA }
+  credentials = "${ var.GCP_CA }"
 
   project = "fifth-sunup-329021"
   region  = "australia-southeast1"
