@@ -7,7 +7,7 @@ terraform {
 }
 
 provider "google" {
-  credentials = file('${ secrets.GCP_SA }')
+  credentials = file("${ secrets.GCP_SA }")
 
   project = "fifth-sunup-329021"
   region  = "australia-southeast1"
