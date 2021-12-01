@@ -6,6 +6,14 @@ terraform {
   }
 }
 
+variable "GCP_SA" {
+  type = string
+}
+
+variable "funcurl" {
+  type = string
+}
+
 provider "google" {
   credentials = file("${ var.GCP_SA }")
 
