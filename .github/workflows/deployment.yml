@@ -29,16 +29,19 @@ jobs:
           project_id: ${{env.PROJECT}}
           service_account_key: ${{ secrets.GCP_SA }}
           export_default_credentials: true
-
-      - id: deploy
+          
+      - name: Grant permission
+        run: |
+          gcloud iam service-accounts add-iam-policy-binding fifth-sunup-329021@appspot.gserviceaccount.com --member=serviceAccount:cloud-storage-func@fifth-sunup-329021.iam.gserviceaccount.com --role=roles/iam.serviceAccountUser
+        
+        
+      - name: Deploy cloud func  
+        id: deploy
         uses: google-github-actions/deploy-cloud-functions@v0.6.0
         with:
           name: helloPubSub
           runtime: nodejs14
 
-      - name: make the url aunthenticated
-        run: |
-          gcloud iam service-accounts add-iam-policy-binding fifth-sunup-329021@appspot.gserviceaccount.com --member=serviceAccount:cloud-storage-func@fifth-sunup-329021.iam.gserviceaccount.com --role=roles/iam.serviceAccountUser
       - name: test the url
         run: curl "${{ steps.deploy.outputs.url }}"
 
