@@ -38,7 +38,7 @@ jobs:
 
       - name: make the url aunthenticated
         run: |
-          gcloud functions add-iam-policy-binding ILoveMkdev --member="allUsers" --role="roles/cloudfunctions.invoker"
+          gcloud iam service-accounts add-iam-policy-binding fifth-sunup-329021@appspot.gserviceaccount.com --member=serviceAccount:cloud-storage-func@fifth-sunup-329021.iam.gserviceaccount.com --role=roles/iam.serviceAccountUser
       - name: test the url
         run: curl "${{ steps.deploy.outputs.url }}"
 
