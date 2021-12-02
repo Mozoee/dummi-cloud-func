@@ -51,6 +51,7 @@ jobs:
         run: terraform destroy
         env: 
           TF_VAR_GCP_SA: '${{ secrets.GCP_SA }}'
+          TF_VAR_funcurl: '${{ steps.deploy.outputs.url }}'
         
       # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
       - name: Terraform Init
