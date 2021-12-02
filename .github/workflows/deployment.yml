@@ -45,17 +45,17 @@ jobs:
         uses: hashicorp/setup-terraform@v1
         with:
           cli_config_credentials_token: '${{ secrets.TF_API_TOKEN }}'
-      
-      # Lets destroy all the resources first
+          
+      # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+      - name: Terraform Init
+        run: terraform init 
+     
+     # Lets destroy all the resources first
       - name: Terraform destroy
         run: terraform destroy
         env: 
           TF_VAR_GCP_SA: '${{ secrets.GCP_SA }}'
           TF_VAR_funcurl: '${{ steps.deploy.outputs.url }}'
-        
-      # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
-      - name: Terraform Init
-        run: terraform init
 
         # On push to main, build or change infrastructure according to Terraform configuration files
         # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
