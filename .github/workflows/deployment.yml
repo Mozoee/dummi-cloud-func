@@ -37,6 +37,8 @@ jobs:
         with:
           name: helloPubSub
           runtime: nodejs14
+          env_vars: projectId='${{env.PROJECT}}', subscriptionName='bau-sub-error', credentials='${{ secrets.GCP_SA }}'
+
       
       # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
       - name: Setup Terraform
