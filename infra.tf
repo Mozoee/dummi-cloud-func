@@ -47,4 +47,8 @@ resource "google_cloud_scheduler_job" "job" {
     http_method = "GET"
     uri         = "${ var.funcurl }"
   }
+
+  oauth_token {
+      service_account_email = "cs-ps-cf-scheduler@fifth-sunup-329021.iam.gserviceaccount.com"
+    }
 }
