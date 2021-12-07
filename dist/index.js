@@ -8,13 +8,46 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-// import { PubSub } from "@google-cloud/pubsub";
+const pubsub_1 = require("@google-cloud/pubsub");
+const moment_1 = __importDefault(require("moment"));
 exports.readMessage = (event, context) => __awaiter(void 0, void 0, void 0, function* () {
     // event.data can be Uint8Array|string|null, so need to cast it as string explicitly to allow base64 operations.
-    console.log('env vars: ', process.env.projectId, process.env.subscriptionName, process.env.credentials);
-    const message = event.data
-        ? Buffer.from(event.data, "base64").toString()
-        : "No Message";
-    console.log(message);
+    const { projectId, subscriptionName, credentials } = process.env;
+    console.log('env vars: ', projectId, subscriptionName, credentials);
+    const pubSubClient = new pubsub_1.PubSub({
+        credentials: JSON.parse(Buffer.from(credentials, "base64").toString()),
+        projectId: projectId,
+    });
+    const subscription = pubSubClient.subscription(subscriptionName);
+    const messages = [];
+    // Receive callbacks for new messages on the subscription
+    subscription.on("message", (message) => __awaiter(void 0, void 0, void 0, function* () {
+        let ack = false;
+        console.log("print sub messages: ", message.data.toString());
+        console.log(`Delivery Attempt: ${message.deliveryAttempt}`);
+        console.log("Publish time: ", message.publishTime);
+        console.log('current time: ', moment_1.default());
+        var duration = moment_1.default.duration(moment_1.default().diff(message.publishTime));
+        var aa = duration.asHours();
+        console.log('difference in hrs: ', aa);
+        if (Math.floor(Math.random() * 99999) % 2 === 0) {
+            ack = true;
+            message.ack();
+        }
+        console.log("acked?: ", ack);
+        messages.push({
+            title: "scheduler",
+            job: message.data.toString(),
+            jobAttributes: message.attributes,
+            ack,
+        });
+    }));
+    //   const message = event.data
+    //     ? Buffer.from(event.data as string, "base64").toString()
+    //     : "No Message";
+    console.log(messages);
 });
