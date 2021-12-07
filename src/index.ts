@@ -44,6 +44,21 @@ exports.readMessage = async (event: PubsubMessage, context: Context): Promise<vo
 //   const message = event.data
 //     ? Buffer.from(event.data as string, "base64").toString()
 //     : "No Message";
-   console.log(messages);
+
+  // Create an event handler to handle errors
+  const errorHandler = function (error: Error) {
+    // Do something with the error
+    console.error(`ERROR: ${error}`);
+    throw error;
+  };
+
+  subscription.on("error", errorHandler);
+
+  setTimeout(() => {
+    console.log("Final output");
+    console.log({ messageReceived: messages });
+    // res.status(200).json({ messageReceived: messages });
+  }, 10 * 1000);
+//    console.log(messages);
 
 }
