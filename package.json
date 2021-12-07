@@ -19,6 +19,11 @@
   "homepage": "https://github.com/Mozoee/dummi-cloud-func#readme",
   "dependencies": {
     "@google-cloud/functions-framework": "^2.1.0",
-    "@google-cloud/pubsub": "^2.18.3"
+    "@google-cloud/pubsub": "^2.18.3",
+    "moment": "^2.29.1"
+  },
+  "devDependencies": {
+    "@types/moment": "^2.13.0",
+    "@types/node": "^16.11.12"
   }
 }
