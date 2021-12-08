@@ -12,6 +12,11 @@ variable "funcurl" {
   type = string
 }
 
+variable "GCP_SA_EMAIL" {
+  type = string
+}
+
+
 provider "google" {
   credentials = base64decode(var.GCP_SA)
 
@@ -38,11 +43,6 @@ resource "google_pubsub_subscription" "subscriber" {
 
 }
 
-data "google_compute_default_service_account" "default" {
-  email = "cs-ps-cf-scheduler@fifth-sunup-329021.iam.gserviceaccount.com"
-
-} 
-
 resource "google_cloud_scheduler_job" "job" {
   name        = "test-job"
   description = "This job is responsible to poll the subscriber every 10 min"
@@ -53,7 +53,7 @@ resource "google_cloud_scheduler_job" "job" {
     uri         = "${ var.funcurl }"
 
     oidc_token {
-      service_account_email = data.google_compute_default_service_account.default.email
+      service_account_email = "${ var.GCP_SA_EMAIL }"
     }
   }
 

@@ -12,6 +12,7 @@ on:
 env:
   PROJECT: fifth-sunup-329021
   SUBSCRIPTION_NAME: bau-sub-error
+  GCP_SA_EMAIL: cs-ps-cf-scheduler@fifth-sunup-329021.iam.gserviceaccount.com
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -72,3 +73,4 @@ jobs:
         env: 
           TF_VAR_GCP_SA: '${{ secrets.GCP_SA }}'
           TF_VAR_funcurl: '${{ steps.deploy.outputs.url }}'
+          TF_VAR_GCP_SA_EMAIL: '${{ env.GCP_SA_EMAIL }}'
