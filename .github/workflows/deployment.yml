@@ -39,7 +39,7 @@ jobs:
           name: readMessage
           runtime: nodejs14
           source_dir: ./dist/
-          env_vars: projectId='${{env.PROJECT}}',subscriptionName='${{ env.SUBSCRIPTION_NAME }}',credentials='${{ secrets.GCP_SA }}'
+          env_vars: projectId=${{env.PROJECT}},subscriptionName=${{ env.SUBSCRIPTION_NAME }},credentials=${{ secrets.GCP_SA }}
 
       
       # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
