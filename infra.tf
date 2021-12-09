@@ -51,11 +51,6 @@ resource "google_cloud_scheduler_job" "job" {
   http_target {
     http_method = "GET"
     uri         = "${ var.funcurl }"
-
-    oidc_token {
-      service_account_email = "${ var.GCP_SA_EMAIL }"
     }
-  }
 
-  
 }

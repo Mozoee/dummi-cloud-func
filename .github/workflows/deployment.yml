@@ -39,7 +39,7 @@ jobs:
         with:
           name: readMessage
           runtime: nodejs14
-          source_dir: ./dist/
+          source_dir: ./cloudfunction/dist/
           env_vars: projectId=${{env.PROJECT}},subscriptionName=${{ env.SUBSCRIPTION_NAME }},credentials=${{ secrets.GCP_SA }}
 
       
