@@ -51,6 +51,12 @@ resource "google_cloud_scheduler_job" "job" {
   http_target {
     http_method = "GET"
     uri         = "${ var.funcurl }"
+    
+    oidc_token {
+      service_account_email = "pubsub-cf-scheduler-run@fifth-sunup-329021.iam.gserviceaccount.com"
+      audience = "${ var.funcurl }"
+    }
+  }
 
     oidc_token {
       service_account_email = "${ var.GCP_SA_EMAIL }"
