@@ -25,13 +25,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Setup GCP Service Account
-        uses: google-github-actions/setup-gcloud@master
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v0'
         with:
-          project_id: ${{env.PROJECT}}
-          service_account_key: ${{ secrets.GCP_SA }}
-          export_default_credentials: true
-          
+          credentials_json: '${{ secrets.GCP_SA }}'    
          
       - name: Deploy cloud func  
         id: deploy
