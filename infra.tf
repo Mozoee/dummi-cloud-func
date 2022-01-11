@@ -57,10 +57,4 @@ resource "google_cloud_scheduler_job" "job" {
       audience = "${ var.funcurl }"
     }
   }
-
-    oidc_token {
-      service_account_email = "${ var.GCP_SA_EMAIL }"
-      audience = "${ var.funcurl }"
-    }
-  }
 }
